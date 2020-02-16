@@ -1,6 +1,8 @@
 import React from 'react';
 import {
     TextField,
+    Button,
+    CircularProgress
 } from '@material-ui/core';
 
 class SearchBar extends React.Component {
@@ -12,6 +14,7 @@ class SearchBar extends React.Component {
         this.props.onFormSubmit(this.state.term);
     }
     render() {
+        let { loading } = this.props;
         return (
             <div className="search-bar ui segment">
                 <form className="" onSubmit={this.onFormSubmit}>
@@ -24,7 +27,14 @@ class SearchBar extends React.Component {
                         onChange={(e) => this.setState({ term: e.target.value })}
                         value={this.state.term}
                         margin="normal"
+                        disabled={loading}
                     />
+                    <Button size="large" variant="contained" type="submit" color="primary">
+                        {loading ?
+                            <CircularProgress size={20} style={{ color: "white" }} />
+                            : "Search"
+                        }
+                    </Button>
                 </form>
             </div>
         )
